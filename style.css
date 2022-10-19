@@ -7,10 +7,14 @@
    
 }
 
-.t1{
-    background-color: aqua;
+.title{
+    color: blue;
+    text-align: center;
 }
 
+#addProduct-button{
+    /* justify-content: center; */
+}
 /* #appContainer{
     background-color: blue;
 } */
