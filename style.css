@@ -12,9 +12,25 @@
     text-align: center;
 }
 
+.productLi{
+    margin-left: 1rem;
+    /* width: 200px; */
+}
+.productDiv{
+    display: flex;
+}
+#poductContainer{
+    display: flex;
+}
 #addProduct-button{
     /* justify-content: center; */
 }
 /* #appContainer{
     background-color: blue;
 } */
+#productListUl{
+    border: solid 1px;
+    min-height: 30vh;
+    padding: 1rem;
+   width: 30vw;
+}
