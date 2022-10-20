@@ -1,5 +1,13 @@
-const INPUT_TYPES = ["name", "price", "description"];
-const INIT_PRODUCT_LIST = [new Product(0, "item1", "10", "test")];
+const INPUT_TYPES = {
+  prdName: "name",
+  price: "price",
+  description: "description",
+};
+const INIT_PRODUCT_LIST = [
+  new Product(0, "item 1", "10", "ball"),
+  new Product(0, "item 2", "33", "apple"),
+  new Product(0, "item 3", "55", "basket"),
+];
 
 const inputTypes = INPUT_TYPES;
 
@@ -65,8 +73,8 @@ function createAppHeader() {
 function createInputProductDetails() {
   //   const inputTypes = ["name", "price", "description"];
 
-  for (let i of inputTypes) {
-    createInputAndLabel(i, i);
+  for (let i in inputTypes) {
+    createInputAndLabel(inputTypes[i], inputTypes[i]);
   }
 
   const $addButton = buttonGenerator(
@@ -149,6 +157,8 @@ function createProductDetails() {
     .getElementById("productDetails")
     .append($productName, $productPrice, $productDescription);
   console.log("15");
+
+  productList.length > 0 && showProductDetails(0);
 }
 
 function refreshProductsList() {
@@ -248,9 +258,24 @@ function createProductLi(product, productIdNumber) {
 
 function deleteProductFromUl(e) {
   const productIdNum = e.target.dataset.productId;
+
   console.log(productIdNum, e.target);
   deleteProductFromList(productIdNum);
   refreshProductsList();
+
+  // if the product that was delete was shown , need to change disply:
+  if (
+    productIdNum === document.getElementById("productDetails").dataset.productId
+  ) {
+    // TODO: fix the logic so will show proporly
+    if (productList.length - 1 > productIdNum) {
+      showProductDetails(productIdNum);
+    } else if (productList.length - 1 === productIdNum - 1) {
+      showProductDetails(productIdNum - 1);
+    } else {
+    }
+  }
+  // document.getElementById("productDetails").dataset.productId = productIdNum;
   // TODO: finish
 }
 
@@ -278,26 +303,32 @@ function addProductToList() {
   clearInputs();
 }
 
-function showProductDetails(productIdNum) {
+function showProductDetails(productIdNum = 0) {
+  if (productList.length === 0) return;
+
   const productDetails = productList[productIdNum];
-  for (let productType of INPUT_TYPES) {
-    // console.log(
-    //   `product${
-    //     productType.charAt(0).toUpperCase() + productType.substring(1)
-    //   }`,
-    //   document.getElementById(
-    //     `product${
-    //       productType.charAt(0).toUpperCase() + productType.substring(1)
-    //     }`
-    //   ),
-    //   16
-    // );
+  for (let productType in inputTypes) {
+    console.log(
+      `product${
+        productType.charAt(0).toUpperCase() + productType.substring(1)
+      }`,
+      document.getElementById(
+        `product${
+          productType.charAt(0).toUpperCase() + productType.substring(1)
+        }`
+      ),
+      16
+    );
     console.log(productDetails[productType], 17, productType);
 
     document.getElementById(
-      `product${productType.charAt(0).toUpperCase() + productType.substring(1)}`
+      `product${
+        inputTypes[productType].charAt(0).toUpperCase() +
+        inputTypes[productType].substring(1)
+      }`
     ).innerHTML = productDetails[productType];
   }
+  document.getElementById("productDetails").dataset.productId = productIdNum;
 }
 
 function refreshShownProductDetails(e) {
