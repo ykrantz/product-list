@@ -1,14 +1,3 @@
-const INPUT_TYPES = {
-  prdName: "name",
-  price: "price",
-  description: "description",
-};
-const INIT_PRODUCT_LIST = [
-  new Product(0, "item 1", "10", "ball"),
-  new Product(0, "item 2", "33", "apple"),
-  new Product(0, "item 3", "55", "basket"),
-];
-
 const inputTypes = INPUT_TYPES;
 
 const productList = INIT_PRODUCT_LIST;
@@ -23,20 +12,13 @@ createInputProductDetails();
 // createProductsContainer();
 createProductsList();
 createProductDetails();
+createAppFotter();
 //
 //
 
 // ***********
 // defenitions:
 // ***********
-
-function Product(id, prdName, price, description) {
-  // TODO: check if to make as class
-  this.id = id;
-  this.prdName = prdName;
-  this.price = price;
-  this.description = description;
-}
 
 // ***********
 // create elements functions:
@@ -51,8 +33,14 @@ function createMainAppContainer() {
   const $productsList = elementGenerator("div", "productsList");
   const $productDetails = elementGenerator("div", "productDetails");
   $poductContainer.append($productsList, $productDetails);
+  const $appFooter = elementGenerator("div", "appFooter");
 
-  $appContainer.append($appHeader, $inputProductDetails, $poductContainer);
+  $appContainer.append(
+    $appHeader,
+    $inputProductDetails,
+    $poductContainer,
+    $appFooter
+  );
 
   document.getElementById("app").append($appContainer);
   console.log("app was created");
@@ -74,7 +62,7 @@ function createInputProductDetails() {
   //   const inputTypes = ["name", "price", "description"];
 
   for (let i in inputTypes) {
-    createInputAndLabel(inputTypes[i], inputTypes[i]);
+    createInputAndLabel(inputTypes[i], inputTypes[i], "addProduct-button");
   }
 
   const $addButton = buttonGenerator(
@@ -85,9 +73,11 @@ function createInputProductDetails() {
   );
   // const $inputProductDetails = document.getElementById("inputProductDetails");
   document.getElementById("inputProductDetails").append($addButton);
+  // console.log(document.getElementsByClassName("productInput")[0], 19);
+  document.getElementsByClassName("productInput")[0].focus();
 }
 
-function createInputAndLabel(inputName, inputLabel) {
+function createInputAndLabel(inputName, inputLabel, buttonIdForEnterEvent) {
   const $newLabel = elementGenerator(
     "label",
     `${inputLabel}Label`,
@@ -103,6 +93,14 @@ function createInputAndLabel(inputName, inputLabel) {
   );
   $newInput.type = "text";
   $newInput.placeholder = `please fill ${inputName}`;
+  $newInput.addEventListener("keypress", (event) => {
+    if (event.key === "Enter") {
+      // Cancel the default action, if needed
+      event.preventDefault();
+      // Trigger the button element with a click
+      document.getElementById(buttonIdForEnterEvent).click();
+    }
+  });
 
   const $inputDiv = elementGenerator(
     "div",
@@ -156,9 +154,16 @@ function createProductDetails() {
   document
     .getElementById("productDetails")
     .append($productName, $productPrice, $productDescription);
-  console.log("15");
+  // con  sole.log("15");
 
   productList.length > 0 && showProductDetails(0);
+}
+
+function createAppFotter() {
+  const $messageDiv = elementGenerator("div", "messageDiv", "messageDiv");
+  const $messageP = elementGenerator("p", "messageP", "messageP");
+  $messageDiv.append($messageP);
+  document.getElementById("appFooter").append($messageDiv);
 }
 
 function refreshProductsList() {
@@ -186,17 +191,13 @@ function refreshProductsList() {
 }
 
 function clearProductList() {
-  // TODO:CHECK
   const $productListUl = document.getElementById("productListUl");
   console.log($productListUl, 14);
-
-  // $productListUl.innerHTML = "";
 
   while ($productListUl.firstChild) {
     $productListUl.removeChild($productListUl.firstChild);
   }
   console.log("productlist was clear");
-  // debugger;
 }
 // ***********
 // main functions:
@@ -281,26 +282,69 @@ function deleteProductFromUl(e) {
 
 function addProductToList() {
   //   TODO: check using form to get value and delete
+  try {
+    const $nameInput = document.getElementById("nameInput");
+    const $priceInput = document.getElementById("priceInput");
+    const $descriptionInput = document.getElementById("descriptionInput");
 
-  const $nameInput = document.getElementById("nameInput");
-  const $priceInput = document.getElementById("priceInput");
-  const $descriptionInput = document.getElementById("descriptionInput");
+    //TODO:  check valid input
+    checkStringInput(
+      $nameInput.value,
+      MAX_PRODUCT_NAME_LENGTH,
+      "name",
+      "nameInput"
+    );
+    checkNumberInput(
+      $priceInput.value,
+      MAX_PRODUCT_PRICE,
+      "price",
+      "priceInput"
+    );
+    checkStringInput(
+      $descriptionInput.value,
+      MAX_PRODUCT_DESCREPTION_LENGTH,
+      "description",
+      "descriptionInput"
+    );
 
-  //TODO:  check valid input
+    const newProduct = new Product(
+      productList.length,
+      $nameInput.value,
+      $priceInput.value,
+      $descriptionInput.value
+    );
+    productList.push(newProduct);
 
-  const newProduct = new Product(
-    productList.length,
-    $nameInput.value,
-    $priceInput.value,
-    $descriptionInput.value
-  );
-  productList.push(newProduct);
+    console.log("product was added", newProduct);
 
-  console.log("product was added", newProduct);
+    const $newProduct = createProductLi(newProduct, productList.length - 1);
+    document.getElementById("productListUl").append($newProduct);
+    clearInputs();
+  } catch (e) {
+    console.log(`erro: ${e.message}`);
+    alertMessage(e.message, true);
+    console.log(e?.elementId, 25);
+    if (e?.elementId) {
+      console.log(26);
+      const $elementWithEror = document.getElementById(e.elementId);
+      // $elementId.focus();
+      // console.log($elementId);
 
-  const $newProduct = createProductLi(newProduct, productList.length - 1);
-  document.getElementById("productListUl").append($newProduct);
-  clearInputs();
+      if ($elementWithEror) {
+        handleErorInElement($elementWithEror);
+      }
+    }
+  }
+}
+function handleErorInElement($elementWithEror) {
+  $elementWithEror.focus();
+  let originalClassName = $elementWithEror.className;
+
+  $elementWithEror.className += " eror";
+  setTimeout(() => {
+    $elementWithEror.className = originalClassName;
+  }, SCONDES_TO_SHOW_EROR * 1000);
+  console.log($elementWithEror.className, 22);
 }
 
 function showProductDetails(productIdNum = 0) {
@@ -308,18 +352,18 @@ function showProductDetails(productIdNum = 0) {
 
   const productDetails = productList[productIdNum];
   for (let productType in inputTypes) {
-    console.log(
-      `product${
-        productType.charAt(0).toUpperCase() + productType.substring(1)
-      }`,
-      document.getElementById(
-        `product${
-          productType.charAt(0).toUpperCase() + productType.substring(1)
-        }`
-      ),
-      16
-    );
-    console.log(productDetails[productType], 17, productType);
+    // console.log(
+    //   `product${
+    //     productType.charAt(0).toUpperCase() + productType.substring(1)
+    //   }`,
+    //   document.getElementById(
+    //     `product${
+    //       productType.charAt(0).toUpperCase() + productType.substring(1)
+    //     }`
+    //   ),
+    //   16
+    // );
+    // console.log(productDetails[productType], 17, productType);
 
     document.getElementById(
       `product${
@@ -358,12 +402,12 @@ function buttonGenerator(
 ) {
   const $newButton = elementGenerator(
     "button",
-    "addProduct-button",
+    idName,
     className,
     innerHTMLText
   );
   $newButton.addEventListener("click", onClickFunc);
-  console.log("created botion", $newButton);
+  // console.log("created botion", $newButton);
   return $newButton;
 }
 
@@ -381,4 +425,91 @@ function elementGenerator(
 
   $newElement.innerHTML = innerHTMLText;
   return $newElement;
+}
+
+function alertMessage(text, isEror = false) {
+  // TODO: make in the page
+  // alert(text);
+
+  console.log(text);
+  const $messageP = document.getElementById("messageP");
+  console.log($messageP, 34);
+  const originalMessageClass = $messageP.className;
+  if (isEror === true) {
+    console.log($messageP.className, 28);
+    $messageP.className += " erorMessage";
+    console.log($messageP.className, 29);
+  }
+  $messageP.innerHTML = text;
+  setTimeout(() => {
+    $messageP.className = originalMessageClass;
+    $messageP.innerHTML = "";
+  }, SCONDES_TO_SHOW_EROR * 1000);
+}
+
+// ***********
+// validation functions:
+// ***********
+function checkStringInput(
+  inputValue,
+  max = 20,
+  fieldName = "",
+  elementId = ""
+) {
+  // if (!inputValue) throw `empty ${fieldName} input. please enter letters`;
+  if (!inputValue)
+    throw new ErorLog(
+      `empty ${fieldName} input. please enter letters`,
+      elementId
+    );
+  // if (!inputValue)
+  //   throw new Eror(`empty ${fieldName} input. please enter letters`);
+  if (inputValue.length > max)
+    throw new ErorLog(
+      ` please insert text less then ${max} in ${fieldName} input . You entered  ${inputValue.length} letters`,
+      elementId
+    );
+  // TODO: FIX REGEX when jkkj23423
+  // var regexTextRoles = /^[0-9!@#\$%\^\&*\)\(+=._-]+$/g;
+  var regexTextRoles = /[0-9!@#\$%\^\&*\)\(+=._-]/;
+  // var regexTextRoles = /[0-9]/;
+  console.log(inputValue, 16);
+  console.log(inputValue.search(regexTextRoles), 17);
+  console.log(regexTextRoles.test(inputValue), 18);
+  // if (inputValue.search(regexTextRoles) >= 0) {
+  //   throw new ErorLog(
+  //     `no numbers or sighns allowed in ${fieldName} input`,
+  //     elementId
+  //   );
+
+  if (regexTextRoles.test(inputValue)) {
+    throw new ErorLog(
+      `no numbers or simbols allowed in ${fieldName} input`,
+      elementId
+    );
+  }
+}
+function checkNumberInput(inputValue, max = 10000, fieldName = "", elementId) {
+  if (!inputValue)
+    throw new ErorLog(
+      `empty ${fieldName} input. please enter number`,
+      elementId
+    );
+
+  // var regexTextRoles = /^[0-9!@#\$%\^\&*\)\(+=._-]+$/g;
+
+  if (isNaN(Number(inputValue))) {
+    throw new ErorLog(
+      `Not a number in ${fieldName} input. Please enter a number`,
+      elementId
+    );
+  }
+  // if (inputValue.search(regexTextRoles) >= 0) {
+  //   throw `no numbers or sighns allowed in ${fieldName} input`;
+  // }
+  if (inputValue > max)
+    throw new ErorLog(
+      ` please insert number less then ${max} in ${fieldName} input `,
+      elementId
+    );
 }

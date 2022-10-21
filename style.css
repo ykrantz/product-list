@@ -2,6 +2,15 @@
     margin: 1rem;
     text-align: center;
 }
+
+.productInput{
+    color: black;
+}
+
+.eror{
+    color: red;
+    border: solid 5px red;
+}
 .productInputLable{
     margin: 1rem;
    
@@ -25,7 +34,7 @@
     
 
 }
-.productP :hover{
+.productP:hover{
     background-color: aquamarine;
     font-weight: bold;
     /* width: 200px; */
@@ -50,6 +59,8 @@
     right:0 */
     margin-left: 1rem;
 }
+
+
 #poductContainer{
     display: flex;
 }
@@ -66,6 +77,11 @@
    margin: 3vh;
 
 }
+
+#productListUl:hover{
+    /* background-color: blue; */
+}
+
 #productDetails{
     border: solid 1px;
     height: 30vh;
@@ -75,6 +91,30 @@
    
 }
 
+#app{
+    /* overflow: hidden; */
+}
+
+#appFooter{
+    position: absolute;
+    bottom: 0;
+    min-height: 10vh;
+
+    /* border:solid blue ; */
+    width:90    vw;
+    text-align: center;
+    justify-content: center;
+}
 #addProduct-button{
-    /* justify-content: center; */
+    justify-content: center;
+    /* margin-left: 200px; */
+}
+
+#messageP{
+    /* background-color: aquamarine; */
+}
+.erorMessage{
+    color: red;
+    background-color: yellow;
+    border-radius: 4px  ;
 }
