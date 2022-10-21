@@ -67,7 +67,7 @@ function createInputProductDetails() {
 
   const $addButton = buttonGenerator(
     addProductToList,
-    "Add",
+    "➕",
     "addProduct-button",
     "btn"
   );
@@ -117,6 +117,12 @@ function createInputAndLabel(inputName, inputLabel, buttonIdForEnterEvent) {
 //   const $productsContainer = elementGenerator("div", "productsContainer");
 // }
 function createProductsList() {
+  const $productListTitle = elementGenerator(
+    "h3",
+    "productListTitle",
+    "subTitles",
+    "Product List:"
+  );
   const $productListUl = elementGenerator("ul", "productListUl");
 
   // for (let product of productList) {
@@ -134,26 +140,48 @@ function createProductsList() {
   }
 
   // const $productsList = document.getElementById("productsList");
-  document.getElementById("productsList").append($productListUl);
+  document
+    .getElementById("productsList")
+    .append($productListTitle, $productListUl);
 }
 
 function createProductDetails() {
-  const $productName = elementGenerator("p", "productName", "productDetails");
+  const $productDetalisTitle = elementGenerator(
+    "h3",
+    "productDetalisTitle",
+    "subTitles",
+    "Product Detalis:"
+  );
+
+  const $productDetalisContainer = elementGenerator(
+    "div",
+    "productDetalisContainer",
+    "productDetalisContainer"
+  );
+  const $productName = elementGenerator(
+    "p",
+    "productName",
+    "productDetails : "
+  );
   const $productPrice = elementGenerator("p", "productPrice", "productDetails");
   const $productDescription = elementGenerator(
     "p",
     "productDescription",
     "productDetails"
   );
-
   // const $productDetails = elementGenerator(
   //   "div",
   //   "productDetails",
   //   "productDetailsDiv"
   // );
+  $productDetalisContainer.append(
+    $productName,
+    $productPrice,
+    $productDescription
+  );
   document
     .getElementById("productDetails")
-    .append($productName, $productPrice, $productDescription);
+    .append($productDetalisTitle, $productDetalisContainer);
   // con  sole.log("15");
 
   productList.length > 0 && showProductDetails(0);
@@ -167,9 +195,7 @@ function createAppFotter() {
 }
 
 function refreshProductsList() {
-  // TODO: delete existing UL and fix
   clearProductList();
-  // debugger;
   const $productListUl = document.getElementById("productListUl");
 
   // for (let product of productList) {
@@ -233,9 +259,9 @@ function createProductLi(product, productIdNumber) {
   $newProduct.dataset.productId = productIdNumber;
   const $deleteButton = buttonGenerator(
     deleteProductFromUl,
-    "X",
+    "🗑️",
     `deleteProductButton_${productIdNumber}`,
-    "deleteProductButton"
+    "deleteProductButton btn"
   );
   $deleteButton.dataset.productId = productIdNumber;
   const $newProductDiv = elementGenerator(
@@ -252,32 +278,33 @@ function createProductLi(product, productIdNumber) {
   $newProductLi.dataset.productId = productIdNumber;
 
   $newProductLi.append($newProductDiv);
-  $newProductLi.addEventListener("click", refreshShownProductDetails);
+  // $newProductLi.addEventListener("click", refreshShownProductDetails);
+  // $newProductLi.addEventListener("click", handleChoosenProduct);
+  $newProduct.addEventListener("click", handleChoosenProduct);
   // console.log($newProduct, 11);
   return $newProductLi;
 }
 
 function deleteProductFromUl(e) {
   const productIdNum = e.target.dataset.productId;
-
+  console.table(productList, 41);
   console.log(productIdNum, e.target);
   deleteProductFromList(productIdNum);
   refreshProductsList();
 
+  console.table(productList, 42);
   // if the product that was delete was shown , need to change disply:
   if (
     productIdNum === document.getElementById("productDetails").dataset.productId
   ) {
     // TODO: fix the logic so will show proporly
-    if (productList.length - 1 > productIdNum) {
+    if (productList.length >= productIdNum) {
       showProductDetails(productIdNum);
     } else if (productList.length - 1 === productIdNum - 1) {
       showProductDetails(productIdNum - 1);
     } else {
     }
   }
-  // document.getElementById("productDetails").dataset.productId = productIdNum;
-  // TODO: finish
 }
 
 function addProductToList() {
@@ -316,6 +343,7 @@ function addProductToList() {
     productList.push(newProduct);
 
     console.log("product was added", newProduct);
+    console.table(productList);
 
     const $newProduct = createProductLi(newProduct, productList.length - 1);
     document.getElementById("productListUl").append($newProduct);
@@ -370,13 +398,34 @@ function showProductDetails(productIdNum = 0) {
         inputTypes[productType].charAt(0).toUpperCase() +
         inputTypes[productType].substring(1)
       }`
-    ).innerHTML = productDetails[productType];
+    ).innerHTML = `<b>${
+      productType === "prdName" ? "name" : productType
+    }:</b> ${productDetails[productType]}`;
   }
   document.getElementById("productDetails").dataset.productId = productIdNum;
 }
 
-function refreshShownProductDetails(e) {
+function handleChoosenProduct(e) {
+  console.log(e, 37);
+  console.log(e.target, 38);
+  changeChoosenProduct(e.target);
+  // TODO: fix bug when delete dosent show coosen background
+  // e.target.className
   const productIdNum = e.target.dataset.productId;
+  refreshShownProductDetails(productIdNum);
+}
+
+function changeChoosenProduct($choosenElement) {
+  console.log($choosenElement, 35);
+  const productsElements = document.getElementsByClassName("productP");
+  for ($element of productsElements) {
+    $element.className = "productP";
+  }
+  $choosenElement.className += " choosenProduct ";
+}
+// function refreshShownProductDetails(e) {
+function refreshShownProductDetails(productIdNum) {
+  // const productIdNum = e.target.dataset.productId;
 
   showProductDetails(productIdNum);
 }
@@ -428,9 +477,6 @@ function elementGenerator(
 }
 
 function alertMessage(text, isEror = false) {
-  // TODO: make in the page
-  // alert(text);
-
   console.log(text);
   const $messageP = document.getElementById("messageP");
   console.log($messageP, 34);
@@ -444,7 +490,7 @@ function alertMessage(text, isEror = false) {
   setTimeout(() => {
     $messageP.className = originalMessageClass;
     $messageP.innerHTML = "";
-  }, SCONDES_TO_SHOW_EROR * 1000);
+  }, SCONDES_TO_SHOW_EROR * 1000 + 2000);
 }
 
 // ***********
@@ -469,7 +515,6 @@ function checkStringInput(
       ` please insert text less then ${max} in ${fieldName} input . You entered  ${inputValue.length} letters`,
       elementId
     );
-  // TODO: FIX REGEX when jkkj23423
   // var regexTextRoles = /^[0-9!@#\$%\^\&*\)\(+=._-]+$/g;
   var regexTextRoles = /[0-9!@#\$%\^\&*\)\(+=._-]/;
   // var regexTextRoles = /[0-9]/;

@@ -28,7 +28,7 @@ function ErorLog(message = "", elementId = "") {
 const SCONDES_TO_SHOW_EROR = 1;
 const MAX_PRODUCT_NAME_LENGTH = 10;
 const MAX_PRODUCT_PRICE = 1000;
-const MAX_PRODUCT_DESCREPTION_LENGTH = 10;
+const MAX_PRODUCT_DESCREPTION_LENGTH = 200;
 
 const INPUT_TYPES = {
   prdName: "name",
@@ -37,6 +37,6 @@ const INPUT_TYPES = {
 };
 const INIT_PRODUCT_LIST = [
   new Product(0, "item 1", "10", "ball"),
-  new Product(0, "item 2", "33", "apple"),
-  new Product(0, "item 3", "55", "basket"),
+  new Product(1, "item 2", "33", "apple"),
+  new Product(2, "item 3", "55", "basket"),
 ];
