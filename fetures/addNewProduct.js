@@ -1,4 +1,4 @@
-const productNextId = INIT_PRODUCT_LIST.length + 1;
+let productNextId = INIT_PRODUCT_LIST.length + 1;
 
 function createAddNewProductWithDetails() {
   const $inputDetailsDiv = elementGenerator(
@@ -66,12 +66,12 @@ function createInputAndLabel(inputName, inputLabel, buttonIdForEnterEvent) {
 }
 
 function addProductToList() {
-  //   TODO: check using form to get value and delete
   try {
     const $nameInput = document.getElementById("nameInput");
     const $priceInput = document.getElementById("priceInput");
     const $descriptionInput = document.getElementById("descriptionInput");
 
+    // TODO:import
     checkStringInput(
       $nameInput.value,
       MAX_PRODUCT_NAME_LENGTH,
@@ -90,36 +90,39 @@ function addProductToList() {
       "description",
       "descriptionInput"
     );
-
+    // TODO: import
     const newProduct = new Product(
-      // TODO: define the correct id
-      productList.length,
+      productNextId,
       $nameInput.value,
       $priceInput.value,
       $descriptionInput.value
     );
     productList.push(newProduct);
-
+    productNextId++;
     console.log("product was added", newProduct);
-    console.table(productList);
-
+    // console.table(productList);
+    // TODO: import
     const $newProduct = createProductLi(newProduct, productList.length - 1);
     document.getElementById("productListUl").append($newProduct);
     clearInputs();
   } catch (e) {
     console.log(`erro: ${e.message}`);
+    // if didn't pass verification, will show the eror in the footer:
     alertMessage(e.message, true);
-    console.log(e?.elementId, 25);
     if (e?.elementId) {
-      console.log(26);
       const $elementWithEror = document.getElementById(e.elementId);
-      // $elementId.focus();
-      // console.log($elementId);
 
       if ($elementWithEror) {
         handleErorInInput($elementWithEror);
       }
     }
+  }
+}
+
+function clearInputs() {
+  const inputsToClear = document.getElementsByClassName("productInput");
+  for (let $input of inputsToClear) {
+    $input.value = "";
   }
 }
 
@@ -131,5 +134,4 @@ function handleErorInInput($elementWithEror) {
   setTimeout(() => {
     $elementWithEror.className = originalClassName;
   }, SCONDES_TO_SHOW_EROR * 1000);
-  console.log($elementWithEror.className, 22);
 }

@@ -20,9 +20,7 @@ function checkStringInput(
   // var regexTextRoles = /^[0-9!@#\$%\^\&*\)\(+=._-]+$/g;
   var regexTextRoles = /[0-9!@#\$%\^\&*\)\(+=._-]/;
   // var regexTextRoles = /[0-9]/;
-  console.log(inputValue, 16);
-  console.log(inputValue.search(regexTextRoles), 17);
-  console.log(regexTextRoles.test(inputValue), 18);
+
   // if (inputValue.search(regexTextRoles) >= 0) {
   //   throw new ErorLog(
   //     `no numbers or sighns allowed in ${fieldName} input`,

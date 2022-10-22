@@ -37,13 +37,17 @@ function createProductDetails() {
     .append($productDetalisTitle, $productDetalisContainer);
   // con  sole.log("15");
 
-  productList.length > 0 && showProductDetails(0);
+  productList.length > 0 && showProductDetails(1);
 }
 
-function showProductDetails(productIdNum = 0) {
+function showProductDetails(productIdNum = 1) {
   if (productList.length === 0) return;
 
-  const productDetails = productList[productIdNum];
+  // const productDetails = productList[productIdNum];
+  const productDetails = productList.find(
+    (product) => product.id === Number(productIdNum)
+  );
+  console.log({ productDetails }, 38, productIdNum);
   for (let productType in inputTypes) {
     // console.log(
     //   `product${
@@ -72,6 +76,7 @@ function showProductDetails(productIdNum = 0) {
 
 function refreshShownProductDetails(productIdNum) {
   // const productIdNum = e.target.dataset.productId;
-
+  // TODO: fix bug to show find is
   showProductDetails(productIdNum);
+  // $choosenProduct.click();
 }

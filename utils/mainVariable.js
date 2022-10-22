@@ -36,7 +36,7 @@ const INPUT_TYPES = {
   description: "description",
 };
 const INIT_PRODUCT_LIST = [
-  new Product(0, "item 1", "10", "ball"),
-  new Product(1, "item 2", "33", "apple"),
-  new Product(2, "item 3", "55", "basket"),
+  new Product(1, "item 1", "10", "ball"),
+  new Product(2, "item 2", "33", "apple"),
+  new Product(3, "item 3", "55", "basket"),
 ];

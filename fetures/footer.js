@@ -1,6 +1,6 @@
 function createAppFotter() {
-  const $messageDiv = elementGenerator("div", "messageDiv", "messageDiv");
   const $messageP = elementGenerator("p", "messageP", "messageP");
+  const $messageDiv = elementGenerator("div", "messageDiv", "messageDiv");
   $messageDiv.append($messageP);
   document.getElementById("appFooter").append($messageDiv);
 }
@@ -8,7 +8,7 @@ function createAppFotter() {
 function alertMessage(text, isEror = false) {
   console.log(text);
   const $messageP = document.getElementById("messageP");
-  console.log($messageP, 34);
+  console.log($messageP, 34, text);
   const originalMessageClass = $messageP.className;
   if (isEror === true) {
     console.log($messageP.className, 28);
