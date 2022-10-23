@@ -1,4 +1,5 @@
-let $choosenProduct = null;
+// let $choosenProduct = null;
+let choosenProductId = 0;
 
 function createProductsList() {
   const $productListTitle = elementGenerator(
@@ -22,7 +23,9 @@ function createProductsList() {
   document
     .getElementById("productsList")
     .append($productListTitle, $productListUl);
-  $choosenProduct = document.getElementsByClassName("productP")[0];
+  // $choosenProduct = document.getElementsByClassName("productP")[0];
+  choosenProductId =
+    document.getElementsByClassName("productP")[0].dataset.productId;
   // $choosenProduct = document.getElementsByClassName("productLi")[0];
   // TODO:
   // console.log({ $choosenProduct });
