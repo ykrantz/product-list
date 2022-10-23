@@ -6,14 +6,10 @@ function createAppFotter() {
 }
 
 function alertMessage(text, isEror = false) {
-  console.log(text);
   const $messageP = document.getElementById("messageP");
-  console.log($messageP, 34, text);
   const originalMessageClass = $messageP.className;
   if (isEror === true) {
-    console.log($messageP.className, 28);
     $messageP.className += " erorMessage";
-    console.log($messageP.className, 29);
   }
   $messageP.innerHTML = text;
   setTimeout(() => {

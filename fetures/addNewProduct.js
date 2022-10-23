@@ -7,11 +7,11 @@ function createAddNewProductWithDetails() {
     "inputDetailsDiv"
   );
 
-  for (let i in inputTypes) {
+  for (let inputType of inputTypes) {
     // passes the value of key of the input details types. so can be defrent key and description
     const $inputDiv = createInputAndLabel(
-      inputTypes[i],
-      inputTypes[i],
+      inputType,
+      inputType,
       "addProduct-button"
     );
 
@@ -99,8 +99,7 @@ function addProductToList() {
     );
     productList.push(newProduct);
 
-    console.log("product was added", newProduct);
-    // console.table(productList);
+    console.log("product was added");
     // TODO: import
     const $newProduct = createProductLi(newProduct);
     document.getElementById("productListUl").append($newProduct);
@@ -114,7 +113,7 @@ function addProductToList() {
 
     clearInputs();
   } catch (e) {
-    console.log(`erro: ${e.message}`);
+    console.log(`error: ${e.message}`);
     // if didn't pass verification, will show the eror in the footer:
     alertMessage(e.message, true);
     if (e?.elementId) {

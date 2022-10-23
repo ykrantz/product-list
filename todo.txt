@@ -5,3 +5,4 @@
      // TODO: delet doto\
 
          // TODO: fix the logic so will show proporly details and selected when delet do to
+  // TODO: check if to make Product as class

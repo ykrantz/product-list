@@ -1,4 +1,4 @@
-function createProductDetails() {
+function createProductDetailsContainer() {
   const $productDetalisTitle = elementGenerator(
     "h3",
     "productDetalisTitle",
@@ -11,72 +11,37 @@ function createProductDetails() {
     "productDetalisContainer",
     "productDetalisContainer"
   );
-  const $productName = elementGenerator(
-    "p",
-    "productName",
-    "productDetails : "
-  );
-  const $productPrice = elementGenerator("p", "productPrice", "productDetails");
-  const $productDescription = elementGenerator(
-    "p",
-    "productDescription",
-    "productDetails"
-  );
-  // const $productDetails = elementGenerator(
-  //   "div",
-  //   "productDetails",
-  //   "productDetailsDiv"
-  // );
-  $productDetalisContainer.append(
-    $productName,
-    $productPrice,
-    $productDescription
-  );
   document
     .getElementById("productDetails")
     .append($productDetalisTitle, $productDetalisContainer);
-  // con  sole.log("15");
 
-  productList.length > 0 && showProductDetails(1);
+  createProductDetails(productList[0]?.id);
 }
 
-function showProductDetails(productIdNum = 1) {
-  if (productList.length === 0) return;
+function createProductDetails(productId) {
+  clearChildrenFromParent("productDetalisContainer");
+  if (!productId) return;
 
-  // const productDetails = productList[productIdNum];
-  const productDetails = productList.find(
-    (product) => product.id === Number(productIdNum)
+  const productDetails = getProductDetailsById(productId);
+  const $productDetalisContainer = document.getElementById(
+    "productDetalisContainer"
   );
-  console.log({ productDetails }, 38, productIdNum);
-  for (let productType in inputTypes) {
-    // console.log(
-    //   `product${
-    //     productType.charAt(0).toUpperCase() + productType.substring(1)
-    //   }`,
-    //   document.getElementById(
-    //     `product${
-    //       productType.charAt(0).toUpperCase() + productType.substring(1)
-    //     }`
-    //   ),
-    //   16
-    // );
-    // console.log(productDetails[productType], 17, productType);
 
-    document.getElementById(
-      `product${
-        inputTypes[productType].charAt(0).toUpperCase() +
-        inputTypes[productType].substring(1)
+  if (!$productDetalisContainer) return;
+
+  for (let productType in productDetails) {
+    if (productType === "id") {
+      continue;
+    }
+
+    const $newDetail = elementGenerator(
+      "p",
+      `productDetailId`,
+      "productDetails",
+      `<b>${productType === "prdName" ? "name" : productType}:</b> ${
+        productDetails[productType]
       }`
-    ).innerHTML = `<b>${
-      productType === "prdName" ? "name" : productType
-    }:</b> ${productDetails[productType]}`;
+    );
+    $productDetalisContainer.append($newDetail);
   }
-  document.getElementById("productDetails").dataset.productId = productIdNum;
-}
-
-function refreshShownProductDetails(productIdNum) {
-  // const productIdNum = e.target.dataset.productId;
-  // TODO: fix bug to show find is
-  showProductDetails(productIdNum);
-  // $choosenProduct.click();
 }

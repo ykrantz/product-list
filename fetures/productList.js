@@ -18,8 +18,12 @@ function createProductsListContainer(choosenId = 1) {
 }
 
 function createProductsList(choosenId = 0) {
-  clearProductList();
-  if (productList.length === 0) return;
+  clearChildrenFromParent("productListUl");
+  if (productList.length === 0) {
+    clearChildrenFromParent("productDetalisContainer");
+
+    return;
+  }
   createProductsLi();
 
   const $choosenProduct = getProductElementById("p", choosenId);
@@ -74,7 +78,7 @@ function handleChoosenProductEvent(e) {
 
 function handleChoosenProduct() {
   changeChoosenProduct(choosenProductId);
-  refreshShownProductDetails(choosenProductId);
+  createProductDetails(choosenProductId);
 }
 
 function changeChoosenProduct(choosenProductId) {
@@ -111,24 +115,4 @@ function deleteProductFromList(productId) {
   });
 
   productList.splice(productPosition, 1);
-}
-
-function clearProductList() {
-  const $productListUl = document.getElementById("productListUl");
-  console.log($productListUl, 14);
-
-  while ($productListUl.firstChild) {
-    $productListUl.removeChild($productListUl.firstChild);
-  }
-  console.log("productlist was clear");
-}
-
-function getProductElementById(elementType, productId) {
-  return document.querySelector(
-    `${elementType}[data-product-id="${productId}"]`
-  );
-}
-
-function findIndexOfProductInProductList(id) {
-  return productList.findIndex((product) => product.id === Number(id));
 }

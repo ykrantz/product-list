@@ -11,7 +11,6 @@ function buttonGenerator(
     innerHTMLText
   );
   $newButton.addEventListener("click", onClickFunc);
-  // console.log("created botion", $newButton);
   return $newButton;
 }
 

@@ -5,6 +5,7 @@
 
 .productInput{
     color: black;
+    
 }
 
 .eror{
@@ -13,6 +14,8 @@
 }
 .productInputLable{
     margin: 1rem;
+    min-width:300px;
+
    
 }
 
@@ -29,16 +32,17 @@
 
 
 .productP:hover{
-    /* background-color: aquamarine; */
+   
     font-weight: bold;
     cursor :pointer;
-    /* width: 200px; */
+  
 }
 
 .choosenProduct{
     color: blueviolet;
-    background-color:aquamarine;
+    background-color:rgb(191, 221, 211);
     font-weight: bold;
+    
 }
 
 .productP{
@@ -46,6 +50,8 @@
     width: 60%;
     overflow: hidden;
     margin: 5px;
+    padding: 1vh;
+    padding-left: 2vw;
     /* width: 200px; */
 }
 
@@ -58,16 +64,20 @@
     /* position :relative;
     right:0 */
     margin-left: 1rem;
+    border-radius: 10px ;
+    border: 1px solid;
 }
+.deleteProductButton:hover{
+    background-color: cadetblue;
 
+}
 .btn:hover{
     /* position :relative;
     right:0 */
     /* margin-left: 1rem; */
     /* font-weight: bold; */
     border: 2px solid black;
-    border-radius: 3px;
-    background-color: cadetblue;
+    border-radius: 10px ;
     cursor :pointer;
 }
 
@@ -76,9 +86,13 @@
     text-align: center;
 }
 
+.productDetails{
+    padding: 1vh;
+    padding-left: 2vw;
+}
 
 #app{
-    /* overflow: hidden; */
+    overflow: hidden;
     /* display: flex;
     flex-direction: column; */
 }
@@ -125,21 +139,38 @@
     min-height: 10vh;
 
     /* border:solid blue ; */
-    width:90    vw;
+    width:90vw;
     text-align: center;
     justify-content: center;
 }
 #addProduct-button{
     justify-content: center;
     margin-left: 50vw;
+    border-radius: 10px;
+    background-color: chartreuse;
+    height: 5vh;
     /* margin-left: 200px; */
+    border: 1px solid black;
+
 }
 
+
+#addProduct-button:hover{
+    
+    background-color:rgb(94, 163, 25);
+    /* margin-left: 200px; */
+    border: 2px solid black;
+    border-radius: 10px ;
+    cursor :pointer;
+}
 #messageP{
     /* background-color: aquamarine; */
+    width: 90vw;
+    justify-content: center;
+    margin-left:3vw;
 }
 .erorMessage{
     color: red;
-    background-color: yellow;
+    background-color: rgb(249, 173, 173);
     border-radius: 4px  ;
 }

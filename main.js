@@ -12,7 +12,7 @@ function createApp() {
   createAppHeader();
   createAddNewProductWithDetails();
   createProductsListContainer(1);
-  createProductDetails();
+  createProductDetailsContainer();
   createAppFotter();
 
   console.log("app was created");
