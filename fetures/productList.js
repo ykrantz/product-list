@@ -1,7 +1,7 @@
 // let $choosenProduct = null;
-let choosenProductId = 0;
+let choosenProductId = 1;
 
-function createProductsList() {
+function createProductsListContainer(choosenId = 1) {
   const $productListTitle = elementGenerator(
     "h3",
     "productListTitle",
@@ -9,10 +9,19 @@ function createProductsList() {
     "Product List:"
   );
   const $productListUl = elementGenerator("ul", "productListUl");
+  document
+    .getElementById("productsList")
+    .append($productListTitle, $productListUl);
 
-  if (productList.length == 0) return;
+  if (productList.length === 0) return;
+  createProductsList(choosenProductId);
+}
 
-  createProductsLi($productListUl);
+function createProductsList(choosenId = 0) {
+  // createProductsLi($productListUl);
+  clearProductList();
+  if (productList.length === 0) return;
+  createProductsLi();
   // for (let product of productList) {
   //   const $newProduct = createProductLi(product);
 
@@ -20,23 +29,27 @@ function createProductsList() {
   // }
   // console.log($choosenProduct.innerHTML);
   // const $productsList = document.getElementById("productsList");
-  document
-    .getElementById("productsList")
-    .append($productListTitle, $productListUl);
+
   // $choosenProduct = document.getElementsByClassName("productP")[0];
-  choosenProductId =
-    document.getElementsByClassName("productP")[0].dataset.productId;
+  // if (choosenId === 0) {
+  //   choosenId === productList[0].id;
+  //   console.log(choosenId, 53);
+  // }
+  const $choosenProduct = getProductElementById("p", choosenId);
+
   // $choosenProduct = document.getElementsByClassName("productLi")[0];
   // TODO:
   // console.log({ $choosenProduct });
 
   // handleChoosenProduct($choosenProduct);
   // document.getElementById(buttonIdForEnterEvent).click();
-  console.log($choosenProduct, 43);
+  // console.log({ $choosenProduct });
   $choosenProduct.click();
 }
-
-function createProductsLi($productListUl) {
+// function createProductsLi($productListUl) {
+function createProductsLi() {
+  const $productListUl = document.getElementById("productListUl");
+  console.log({ $productListUl }, 52);
   for (let product of productList) {
     const $newProduct = createProductLi(product);
 
@@ -47,8 +60,8 @@ function createProductsLi($productListUl) {
 function createProductLi(product) {
   const $newProduct = elementGenerator(
     "p",
-
-    `productP_${product?.id}`,
+    "productPId",
+    // `productP_${product?.id}`,
     // `${product?.prdName}`,
     "productP",
     product?.prdName
@@ -66,14 +79,16 @@ function createProductLi(product) {
 
   const $newProductDiv = elementGenerator(
     "div",
-    `${product?.prdName}Div`,
+    "productDivId",
+    // `${product?.prdName}Div`,
     "productDiv"
   );
   $newProductDiv.append($newProduct, $deleteButton);
 
   const $newProductLi = elementGenerator(
     "li",
-    `${product?.prdName}Li`,
+    "productLiId",
+    // `${product?.prdName}Li`,
     "productLi"
   );
   $newProductLi.dataset.productId = productIdNumber;
@@ -85,53 +100,68 @@ function createProductLi(product) {
 }
 
 function handleChoosenProductEvent(e) {
-  $choosenProduct = e.target;
+  choosenProductId = e.target.dataset.productId;
   handleChoosenProduct();
   // changeChoosenProduct($choosenProduct);
   // const productIdNum = $choosenProduct.dataset.productId;
   // refreshShownProductDetails(productIdNum);
 }
 function handleChoosenProduct() {
-  changeChoosenProduct($choosenProduct);
-  const productIdNum = $choosenProduct.dataset.productId;
-  refreshShownProductDetails(productIdNum);
+  changeChoosenProduct(choosenProductId);
+  // const productIdNum = $choosenProduct.dataset.productId;
+  refreshShownProductDetails(choosenProductId);
 }
 
-function changeChoosenProduct($choosenElement) {
+function changeChoosenProduct(choosenProductId) {
   const productsElements = document.getElementsByClassName("productP");
   // resets all class name of product to defualt class
   for ($element of productsElements) {
     $element.className = "productP";
+    if ($element.dataset.productId === choosenProductId) {
+      $element.className += " choosenProduct ";
+    }
   }
-  $choosenElement.className += " choosenProduct ";
+  // $choosenElement.className += " choosenProduct ";
 }
 
 function deleteProductFromUl(e) {
   // TODO: check if is a bug: fix bug when delete dosent show coosen background
   const productIdNum = e.target.dataset.productId;
-  console.table(productList, 41);
-  console.log(productIdNum, e.target);
+  // console.table(productList, 41);
+  // console.log(productIdNum, e.target);
+  // debugger;
+  if (productIdNum == choosenProductId) {
+    const productIndex = findIndexOfProductInProductList(productIdNum);
+    // const productListLength = productList.length;
+    if (productIndex < productList.length - 1) {
+      // if product to delete has a former pudact=>will choose it. else will show the former
+      choosenProductId = productList[productIndex + 1].id;
+    } else {
+      //  if (productIndex == productListLength - 1) {
+      choosenProductId = productList[productIndex - 1];
+    }
+  }
   deleteProductFromList(productIdNum);
-  refreshProductsList();
-
-  console.table(productList, 42);
+  // TODO:
+  // refreshProductsList();
+  createProductsList(choosenProductId);
+  // console.table(productList, 42);
   // if the product that was delete was shown , need to change disply:
   // if (
   //   productIdNum === document.getElementById("productDetails").dataset.productId
   // ) {
-  if (productIdNum === $choosenProduct.dataset.productId) {
-    console.log(44);
-    // handleChoosenProduct();
-    // TODO: fix the logic so will show proporly
-    if (productList.length >= productIdNum) {
-      // showProductDetails(productIdNum);
-      $choosenProduct = getProductPElementbById(productIdNum);
-    } else if (productList.length < productIdNum) {
-      // showProductDetails(productIdNum - 1);
-    } else {
-    }
-    handleChoosenProduct();
-  }
+  // if (productIdNum === $choosenProduct.dataset.productId) {
+  //   console.log(44);
+  //   // handleChoosenProduct();
+  //   // TODO: fix the logic so will show proporly
+  //   if (productList.length >= productIdNum) {
+  //     // showProductDetails(productIdNum);
+  //     $choosenProduct = getProductPElementbById(productIdNum);
+  //   } else if (productList.length < productIdNum) {
+  //     // showProductDetails(productIdNum - 1);
+  //   } else {
+  //   }
+  // handleChoosenProduct();
 }
 
 function getProductPElementbById(productIdNum) {
@@ -178,4 +208,14 @@ function deleteProductFromList(productId) {
   });
 
   productList.splice(productPosition, 1);
+}
+
+function getProductElementById(elementType, productId) {
+  return document.querySelector(
+    `${elementType}[data-product-id="${productId}"]`
+  );
+}
+
+function findIndexOfProductInProductList(id) {
+  return productList.findIndex((product) => product.id === Number(id));
 }

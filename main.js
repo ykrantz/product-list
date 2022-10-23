@@ -11,7 +11,7 @@ function createApp() {
   // create Features and render to app:
   createAppHeader();
   createAddNewProductWithDetails();
-  createProductsList();
+  createProductsListContainer();
   createProductDetails();
   createAppFotter();
 

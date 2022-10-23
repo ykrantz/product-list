@@ -98,12 +98,20 @@ function addProductToList() {
       $descriptionInput.value
     );
     productList.push(newProduct);
-    productNextId++;
+
     console.log("product was added", newProduct);
     // console.table(productList);
     // TODO: import
-    const $newProduct = createProductLi(newProduct, productList.length - 1);
+    const $newProduct = createProductLi(newProduct);
     document.getElementById("productListUl").append($newProduct);
+    // if all list was delete and its the first product in list. will choose it for details
+    if (productList.length === 1) {
+      const $choosenProduct = getProductElementById("p", productNextId);
+
+      $choosenProduct.click();
+    }
+    productNextId++;
+
     clearInputs();
   } catch (e) {
     console.log(`erro: ${e.message}`);
