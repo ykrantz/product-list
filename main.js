@@ -4,11 +4,9 @@ import { createAppHeader } from "./fetures/header.js";
 import { createProductDetailsContainer } from "./fetures/productDetails.js";
 import { createProductsListContainer } from "./fetures/productList.js";
 import { elementGenerator } from "./utils/elementGeneratores.js";
-import { INIT_PRODUCT_LIST, INPUT_TYPES } from "./utils/mainVariable.js";
+import { INIT_PRODUCT_LIST } from "./utils/mainVariable.js";
 
 export const productList = INIT_PRODUCT_LIST;
-
-const $app = document.getElementById("app");
 
 main();
 
