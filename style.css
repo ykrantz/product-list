@@ -14,16 +14,10 @@
 }
 .productInputLable{
     margin: 0.5rem;
-    /* min-width:300px   ; */
-    /* width:300px   ; */
-    /* background-color: blue; */
-    /* display: block; */
-	/* padding-left: 15px; */
-	/* text-indent: -15px; */
+ 
     text-align: right;
     display: inline-block;
     width: 100px;
-    /* width: 150px; */
    
 }
 
@@ -34,7 +28,6 @@
 
 .productLi{
     margin-left: 1rem;
-    /* width: 200px; */
     margin: 0.5rem;
 }
 
@@ -54,13 +47,11 @@
 }
 
 .productP{
-    /* font-weight: bold; */
-    width: 60%;
+    width: 80%;
     overflow: hidden;
     margin: 5px;
     padding: 1vh;
     padding-left: 2vw;
-    /* width: 200px; */
 }
 
 
@@ -69,21 +60,18 @@
 }
 
 .deleteProductButton{
-    /* position :relative;
-    right:0 */
+  
     margin-left: 1rem;
     border-radius: 10px ;
     border: 1px solid;
+  
 }
 .deleteProductButton:hover{
     background-color: cadetblue;
 
 }
 .btn:hover{
-    /* position :relative;
-    right:0 */
-    /* margin-left: 1rem; */
-    /* font-weight: bold; */
+  
     border: 2px solid black;
     border-radius: 10px ;
     cursor :pointer;
@@ -101,25 +89,18 @@
 
 #app{
     overflow: hidden;
-    /* display: flex;
-    flex-direction: column; */
+  
 }
 
 #inputProductDetails{
-    /* justify-content: center; */
-    /* display: table-cell;
-    vertical-align: middle; */
-    /* display: flex; */
-  /* align-items: center */
+
 }
 #poductContainer{
     display: flex;
 }
 
 
-/* #appContainer{
-    background-color: blue;
-} */
+
 #productListUl{
     border: solid 1px;
     min-height: 30vh;
@@ -127,11 +108,12 @@
    width: 30vw;
    margin: 3vh;
    list-style-type: none;
+   overflow-y: scroll;
+   height: 30vh;
 
 }
 
 #productListUl:hover{
-    /* background-color: blue; */
 }
 
 #productDetails{
@@ -141,14 +123,14 @@
 
 #productDetalisContainer{
     border: solid 1px;
-    height: 30vh;
     padding: 1rem;
    width: 30vw;
    margin: 3vh;
+   overflow-y: scroll;
+   height: 30vh;
 }
 #poductContainer{
-    /* margin-left: 10vw;
-    margin-right: 10vw; */
+
     justify-content: center;
 }
 
@@ -158,7 +140,6 @@
     bottom: 0;
     min-height: 10vh;
 
-    /* border:solid blue ; */
     width:90vw;
     text-align: center;
     justify-content: center;
@@ -166,6 +147,7 @@
 #gitLink{
     position: absolute;
     bottom: 2VH;
+    font-size:4vh;
 }
 
 #addProduct-button{
@@ -174,7 +156,6 @@
     border-radius: 10px;
     background-color: chartreuse;
     height: 5vh;
-    /* margin-left: 200px; */
     border: 1px solid black;
 
 }
@@ -183,7 +164,6 @@
 #addProduct-button:hover{
     
     background-color:rgb(94, 163, 25);
-    /* margin-left: 200px; */
     border: 2px solid black;
     border-radius: 10px ;
     cursor :pointer;
@@ -191,7 +171,6 @@
 #messageP{
     position: relative;
     bottom: 3VH;
-    /* background-color: aquamarine; */
     width: 90vw;
     justify-content: center;
     margin-left:3vw;

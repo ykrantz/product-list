@@ -106,14 +106,18 @@ function changeChoosenProduct(choosenProductId) {
 function deleteProductFromUl(e) {
   const productIdNum = e.target.dataset.productId;
 
-  // update choosen id instead of delted product
+  //if deleting the product that shows will  update choosen id instead of delted product
+  //  if no product lest won't show ant details
   if (productIdNum == choosenProductId) {
     const productIndex = findIndexOfProductInProductList(productIdNum);
+
     if (productIndex < productList.length - 1) {
-      // if product to delete has a former pudact so will choose it. else will show the former
-      choosenProductId = productList[productIndex + 1].id;
+      // if product to delete has a next product so will choose it. else will show the former
+      choosenProductId = productList[productIndex + 1]?.id;
+    } else if (productList.length > 0) {
+      choosenProductId = productList[productIndex - 1]?.id;
     } else {
-      choosenProductId = productList[productIndex - 1];
+      choosenProductId = 0;
     }
   }
   deleteProductFromList(productIdNum);

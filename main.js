@@ -1,6 +1,3 @@
-// const { INPUT_TYPES, INIT_PRODUCT_LIST } = require("./utils/mainVariable");
-// {INPUT_TYPES,INIT_PRODUCT_LIST}=re
-
 import { createAddNewProductWithDetails } from "./fetures/addNewProduct.js";
 import { createAppFotter } from "./fetures/footer.js";
 import { createAppHeader } from "./fetures/header.js";
@@ -9,28 +6,20 @@ import { createProductsListContainer } from "./fetures/productList.js";
 import { elementGenerator } from "./utils/elementGeneratores.js";
 import { INIT_PRODUCT_LIST, INPUT_TYPES } from "./utils/mainVariable.js";
 
-// import { INPUT_TYPES, INIT_PRODUCT_LIST } from ("./utils/mainVariable");
-
-// const { INPUT_TYPES, INIT_PRODUCT_LIST } = require("./utils/mainVariable");
-
-// import { INIT_PRODUCT_LIST, INPUT_TYPES } from "./utils/mainVariable";
-
-// const inputTypes = INPUT_TYPES;
-
 export const productList = INIT_PRODUCT_LIST;
 
 const $app = document.getElementById("app");
-createApp();
+
+main();
+
+function main() {
+  createApp();
+}
 
 function createApp() {
   createMainAppStructore();
 
-  // create Features and render to app:
-  createAppHeader();
-  createAddNewProductWithDetails();
-  createProductsListContainer(1);
-  createProductDetailsContainer();
-  createAppFotter();
+  createAppFetures();
 
   console.log("app was created");
 }
@@ -53,4 +42,12 @@ function createMainAppStructore() {
   );
 
   document.getElementById("app").append($appContainer);
+}
+
+function createAppFetures() {
+  createAppHeader();
+  createAddNewProductWithDetails();
+  createProductsListContainer(1);
+  createProductDetailsContainer();
+  createAppFotter();
 }

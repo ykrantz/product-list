@@ -26,6 +26,5 @@ function createGitLink() {
   const $gitLink = elementGenerator("a", "gitLink", "gitLink", "GitHub");
   $gitLink.href = "https://github.com/ykrantz/product-list";
   $gitLink.target = "_blank";
-  console.log({ $gitLink }, 21);
   return $gitLink;
 }
