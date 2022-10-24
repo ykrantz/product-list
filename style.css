@@ -1,5 +1,5 @@
 .inputDiv{
-    margin: 1rem;
+    margin: 0.5rem;
     text-align: center;
 }
 
@@ -13,9 +13,17 @@
     border: solid 5px red;
 }
 .productInputLable{
-    margin: 1rem;
-    min-width:300px;
-
+    margin: 0.5rem;
+    /* min-width:300px   ; */
+    /* width:300px   ; */
+    /* background-color: blue; */
+    /* display: block; */
+	/* padding-left: 15px; */
+	/* text-indent: -15px; */
+    text-align: right;
+    display: inline-block;
+    width: 100px;
+    /* width: 150px; */
    
 }
 
@@ -96,6 +104,14 @@
     /* display: flex;
     flex-direction: column; */
 }
+
+#inputProductDetails{
+    /* justify-content: center; */
+    /* display: table-cell;
+    vertical-align: middle; */
+    /* display: flex; */
+  /* align-items: center */
+}
 #poductContainer{
     display: flex;
 }
@@ -127,10 +143,14 @@
     border: solid 1px;
     height: 30vh;
     padding: 1rem;
-   width: 40vw;
+   width: 30vw;
    margin: 3vh;
 }
-
+#poductContainer{
+    /* margin-left: 10vw;
+    margin-right: 10vw; */
+    justify-content: center;
+}
 
 
 #appFooter{
@@ -143,9 +163,14 @@
     text-align: center;
     justify-content: center;
 }
+#gitLink{
+    position: absolute;
+    bottom: 2VH;
+}
+
 #addProduct-button{
     justify-content: center;
-    margin-left: 50vw;
+    margin-left: 48vw;
     border-radius: 10px;
     background-color: chartreuse;
     height: 5vh;
@@ -164,13 +189,16 @@
     cursor :pointer;
 }
 #messageP{
+    position: relative;
+    bottom: 3VH;
     /* background-color: aquamarine; */
     width: 90vw;
     justify-content: center;
     margin-left:3vw;
+    font-size: large;
 }
 .erorMessage{
     color: red;
-    background-color: rgb(249, 173, 173);
+    background-color: rgb(244, 201, 201);
     border-radius: 4px  ;
 }

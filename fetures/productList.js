@@ -1,8 +1,20 @@
+import { productList } from "../main.js";
+import {
+  buttonGenerator,
+  elementGenerator,
+} from "../utils/elementGeneratores.js";
+import {
+  clearChildrenFromParent,
+  findIndexOfProductInProductList,
+  getProductElementById,
+} from "../utils/generalFunctions.js";
+import { createProductDetails } from "./productDetails.js";
+
 let choosenProductId = 1;
 
-function createProductsListContainer(choosenId = 1) {
+export function createProductsListContainer(choosenId = 1) {
   const $productListTitle = elementGenerator(
-    "h3",
+    "h2",
     "productListTitle",
     "subTitles",
     "Product List:"
@@ -41,7 +53,7 @@ function createProductsLi() {
   }
 }
 
-function createProductLi(product) {
+export function createProductLi(product) {
   const $newProduct = elementGenerator(
     "p",
     "productPId",
@@ -83,7 +95,7 @@ function handleChoosenProduct() {
 
 function changeChoosenProduct(choosenProductId) {
   const productsElements = document.getElementsByClassName("productP");
-  for ($element of productsElements) {
+  for (let $element of productsElements) {
     $element.className = "productP";
     if ($element.dataset.productId === choosenProductId) {
       $element.className += " choosenProduct ";

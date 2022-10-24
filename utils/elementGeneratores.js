@@ -1,4 +1,4 @@
-function buttonGenerator(
+export function buttonGenerator(
   onClickFunc,
   innerHTMLText = "",
   idName = `button-id`,
@@ -14,7 +14,7 @@ function buttonGenerator(
   return $newButton;
 }
 
-function elementGenerator(
+export function elementGenerator(
   type,
   idName = `${type}-id`,
   className = `${type}-${idName}`,

@@ -1,6 +1,13 @@
-function createProductDetailsContainer() {
+import { productList } from "../main.js";
+import { elementGenerator } from "../utils/elementGeneratores.js";
+import {
+  clearChildrenFromParent,
+  getProductDetailsById,
+} from "../utils/generalFunctions.js";
+
+export function createProductDetailsContainer() {
   const $productDetalisTitle = elementGenerator(
-    "h3",
+    "h2",
     "productDetalisTitle",
     "subTitles",
     "Product Detalis:"
@@ -18,7 +25,7 @@ function createProductDetailsContainer() {
   createProductDetails(productList[0]?.id);
 }
 
-function createProductDetails(productId) {
+export function createProductDetails(productId) {
   clearChildrenFromParent("productDetalisContainer");
   if (!productId) return;
 

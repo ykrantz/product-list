@@ -1,8 +1,2 @@
-  //   TODO: check using form to get value and delete in input
- // TODO: define the correct id also in produvct list and show and delele
- // TODO: ad import export
-     // TODO: import
-     // TODO: delet doto\
 
-         // TODO: fix the logic so will show proporly details and selected when delet do to
   // TODO: check if to make Product as class

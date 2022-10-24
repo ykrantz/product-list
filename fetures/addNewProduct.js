@@ -1,13 +1,32 @@
+import { productList } from "../main.js";
+import {
+  buttonGenerator,
+  elementGenerator,
+} from "../utils/elementGeneratores.js";
+import { getProductElementById } from "../utils/generalFunctions.js";
+import {
+  INIT_PRODUCT_LIST,
+  INPUT_TYPES,
+  MAX_PRODUCT_DESCREPTION_LENGTH,
+  MAX_PRODUCT_NAME_LENGTH,
+  MAX_PRODUCT_PRICE,
+  Product,
+  SCONDES_TO_SHOW_EROR,
+} from "../utils/mainVariable.js";
+import { checkNumberInput, checkStringInput } from "../utils/validations.js";
+import { alertMessage } from "./footer.js";
+import { createProductLi } from "./productList.js";
+
 let productNextId = INIT_PRODUCT_LIST.length + 1;
 
-function createAddNewProductWithDetails() {
+export function createAddNewProductWithDetails() {
   const $inputDetailsDiv = elementGenerator(
     "div",
     "inputDetailsDiv",
     "inputDetailsDiv"
   );
 
-  for (let inputType of inputTypes) {
+  for (let inputType of INPUT_TYPES) {
     // passes the value of key of the input details types. so can be defrent key and description
     const $inputDiv = createInputAndLabel(
       inputType,
@@ -71,7 +90,6 @@ function addProductToList() {
     const $priceInput = document.getElementById("priceInput");
     const $descriptionInput = document.getElementById("descriptionInput");
 
-    // TODO:import
     checkStringInput(
       $nameInput.value,
       MAX_PRODUCT_NAME_LENGTH,
@@ -90,7 +108,6 @@ function addProductToList() {
       "description",
       "descriptionInput"
     );
-    // TODO: import
     const newProduct = new Product(
       productNextId,
       $nameInput.value,
@@ -100,7 +117,6 @@ function addProductToList() {
     productList.push(newProduct);
 
     console.log("product was added");
-    // TODO: import
     const $newProduct = createProductLi(newProduct);
     document.getElementById("productListUl").append($newProduct);
     // if all list was delete and its the first product in list. will choose it for details

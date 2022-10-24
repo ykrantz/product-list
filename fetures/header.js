@@ -1,4 +1,6 @@
-function createAppHeader() {
+import { elementGenerator } from "../utils/elementGeneratores.js";
+
+export function createAppHeader() {
   const $newTitle = elementGenerator(
     "h1",
     "mainTitle",

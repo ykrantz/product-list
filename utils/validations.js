@@ -1,4 +1,6 @@
-function checkStringInput(
+import { ErorLog } from "./mainVariable.js";
+
+export function checkStringInput(
   inputValue,
   max = 20,
   fieldName = "",
@@ -24,7 +26,12 @@ function checkStringInput(
     );
   }
 }
-function checkNumberInput(inputValue, max = 10000, fieldName = "", elementId) {
+export function checkNumberInput(
+  inputValue,
+  max = 10000,
+  fieldName = "",
+  elementId
+) {
   if (!inputValue)
     throw new ErorLog(
       `empty ${fieldName} input. please enter number`,
