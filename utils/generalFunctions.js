@@ -6,7 +6,7 @@ export function clearChildrenFromParent(parentId) {
   while ($parentId?.firstChild) {
     $parentId.removeChild($parentId.firstChild);
   }
-  console.log("productlist was clear");
+  // console.log("productlist was clear");
 }
 
 export function getProductElementById(elementType, productId) {
