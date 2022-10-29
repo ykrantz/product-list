@@ -12,7 +12,7 @@ import { createProductDetails } from "./productDetails.js";
 
 let choosenProductId = 1;
 
-export function createProductsListContainer(choosenId = 1) {
+export function createProductsListContainer(choosenId = choosenProductId) {
   const $productListTitle = elementGenerator(
     "h2",
     "productListTitle",
@@ -29,7 +29,7 @@ export function createProductsListContainer(choosenId = 1) {
   createProductsList(choosenId);
 }
 
-function createProductsList(choosenId = 0) {
+export function createProductsList(choosenId = 1) {
   clearChildrenFromParent("productListUl");
   if (productList.length === 0) {
     clearChildrenFromParent("productDetalisContainer");
@@ -37,9 +37,10 @@ function createProductsList(choosenId = 0) {
     return;
   }
   createProductsLi();
-
+  choosenProductId = choosenId;
   const $choosenProduct = getProductElementById("p", choosenId);
   if ($choosenProduct) {
+    // choose the current product and show its details
     $choosenProduct.click();
   }
 }

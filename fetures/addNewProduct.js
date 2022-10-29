@@ -3,7 +3,6 @@ import {
   buttonGenerator,
   elementGenerator,
 } from "../utils/elementGeneratores.js";
-import { getProductElementById } from "../utils/generalFunctions.js";
 import {
   INIT_PRODUCT_LIST,
   INPUT_TYPES,
@@ -15,29 +14,27 @@ import {
 } from "../utils/mainVariable.js";
 import { checkNumberInput, checkStringInput } from "../utils/validations.js";
 import { alertMessage } from "./footer.js";
-import { createProductLi } from "./productList.js";
+import { createProductsList } from "./productList.js";
 
 let productNextId = INIT_PRODUCT_LIST.length + 1;
 
 export function createAddNewProductWithDetails() {
-  const $inputDetailsDiv = elementGenerator(
+  const $inputDetailsFrom = elementGenerator(
     "div",
-    "inputDetailsDiv",
-    "inputDetailsDiv"
+    "inputDetailsFrom",
+    "inputDetailsFrom"
   );
-
   for (let inputType of INPUT_TYPES) {
-    // passes the value of key of the input details types. so can be defrent key and description
     const $inputDiv = createInputAndLabel(
       inputType,
       inputType,
       "addProduct-button"
     );
 
-    $inputDetailsDiv.append($inputDiv);
+    $inputDetailsFrom.append($inputDiv);
   }
 
-  document.getElementById("inputProductDetails").append($inputDetailsDiv);
+  document.getElementById("inputProductDetails").append($inputDetailsFrom);
 
   const $addButton = buttonGenerator(
     addProductToList,
@@ -64,6 +61,8 @@ function createInputAndLabel(inputName, inputLabel, buttonIdForEnterEvent) {
   );
   $newInput.type = "text";
   $newInput.placeholder = `please fill ${inputName}`;
+  $newInput.name = `${inputName}Input`;
+  $newLabel.for = `${inputName}Input`;
 
   // define adding product when press enter
   $newInput.addEventListener("keypress", (event) => {
@@ -90,6 +89,7 @@ function addProductToList() {
     const $priceInput = document.getElementById("priceInput");
     const $descriptionInput = document.getElementById("descriptionInput");
 
+    // validations:
     checkStringInput(
       $nameInput.value,
       MAX_PRODUCT_NAME_LENGTH,
@@ -108,6 +108,7 @@ function addProductToList() {
       "description",
       "descriptionInput"
     );
+    // if passed validation will add to list and refresh the list:
     const newProduct = new Product(
       productNextId,
       $nameInput.value,
@@ -117,19 +118,13 @@ function addProductToList() {
     productList.push(newProduct);
 
     console.log("product was added");
-    const $newProduct = createProductLi(newProduct);
-    document.getElementById("productListUl").append($newProduct);
-    // if all list was delete and its the first product in list. will choose it for details
-    if (productList.length === 1) {
-      const $choosenProduct = getProductElementById("p", productNextId);
+    createProductsList(productNextId);
 
-      $choosenProduct.click();
-    }
     productNextId++;
 
     clearInputs();
   } catch (e) {
-    console.log(`error: ${e.message}`);
+    console.log(`error: ${e}`);
     // if didn't pass verification, will show the eror in the footer:
     alertMessage(e.message, true);
     if (e?.elementId) {
