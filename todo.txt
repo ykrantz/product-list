@@ -1,1 +1,1 @@
-
+// focus the scrool on the last product when added or on the choosen on when delete
