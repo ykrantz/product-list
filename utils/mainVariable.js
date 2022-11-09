@@ -1,9 +1,3 @@
-// export function Product(id, prdName, price, description) {
-//   this.id = id;
-//   this.prdName = prdName;
-//   this.price = price;
-//   this.description = description;
-// }
 export class Product {
   constructor(id, prdName, price, description) {
     this.id = id;

@@ -20,12 +20,21 @@ export function elementGenerator(
   className = `${type}-${idName}`,
   innerHTMLText = ""
 ) {
-  const $newElement = document.createElement(type);
+  return elementHtmlGenerator({
+    tag: type,
+    attributes: [
+      { name: "id", value: idName },
+      { name: "class", value: className },
+    ],
+    innerHTML: innerHTMLText,
+  });
+}
 
-  $newElement.setAttribute("id", idName);
-
-  $newElement.setAttribute("class", className);
-
-  $newElement.innerHTML = innerHTMLText;
+export function elementHtmlGenerator({ tag, attributes = [], innerHTML = "" }) {
+  const $newElement = document.createElement(tag);
+  attributes.forEach(({ name, value }) => {
+    $newElement.setAttribute(name, value);
+  });
+  $newElement.innerHTML = innerHTML;
   return $newElement;
 }
