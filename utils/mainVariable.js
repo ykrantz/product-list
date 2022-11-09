@@ -22,4 +22,12 @@ export const INIT_PRODUCT_LIST = [
   new Product(2, "item 2", "33", "apple"),
   new Product(3, "item 3", "55", "basket"),
 ];
+export const DB_INIT_PRODUCT_LIST = {
+  1: new Product(1, "item 1", "10", "ball"),
+  2: new Product(2, "item 2", "33", "apple"),
+  3: new Product(3, "item 3", "55", "basket"),
+};
+
+export const DB_INIT_PRODUCT_LAST_ID = 3;
+
 export const INPUT_TYPES = ["name", "price", "description"];

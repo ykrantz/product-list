@@ -38,3 +38,7 @@ export function elementHtmlGenerator({ tag, attributes = [], innerHTML = "" }) {
   $newElement.innerHTML = innerHTML;
   return $newElement;
 }
+
+const name = 2;
+
+function test(name) {}
